@@ -1,0 +1,66 @@
+auto_scaling:
+    name: test123
+    job: Developer
+    skill: Elite
+autoscalling_launchconfig:
+    sec_grp_name: security_group_ec99
+    sec_grp_desc: Launch Config security group
+    LaunchConfigurationName: launchconfig99
+    ImageId: ami-1853ac65
+    KeyName: NewKey
+    InstanceType: t2.micro
+    MinSize: 2
+    MaxSize: 4
+    DefaultCooldown: 5
+    AvailabilityZones: 
+        - us-east-1a
+        - us-east-1c
+        - us-east-1e
+        - us-east-1d
+        - us-east-1b
+    HealthCheckType: EC2
+    HealthCheckGracePeriod: 5
+    NewInstancesProtectedFromScaleIn: False
+    AutoScalingGroupName: autoscale_group_name2
+    PolicyName: policy123
+    PolicyType: TargetTrackingScaling
+    AdjustmentType: ChangeInCapacity
+    Cooldown: 5
+    EstimatedInstanceWarmup: 5
+    PredefinedMetricType: ASGAverageCPUUtilization
+    TargetValue: 70.0
+    DisableScaleIn: False
+load_balancer:
+    sec_grp_name: security_group_lb99
+    sec_grp_desc: Load balancer security group
+    name: balancer9
+    subnets: subnet-24cbf17f,subnet-0bbcb326,subnet-7699f34a,subnet-4931712c
+    scheme: internet-facing
+    type: application
+    ipaddresstype: ipv4
+target_group:
+    Name: elbtargetgrp9
+    Protocol: HTTP
+    Port: 80
+    HealthCheckProtocol: HTTP
+    HealthCheckPort: 80
+    #HealthCheckPath='index.html',
+    HealthCheckIntervalSeconds: 5
+    HealthCheckTimeoutSeconds: 3
+    HealthyThresholdCount: 3
+    UnhealthyThresholdCount: 2
+    HttpCode: 200
+    TargetType: instance
+rds_instance:
+    sec_grp_name: security_group_rds9
+    sec_grp_desc: RDS security group
+    DBName: MySQLDB9
+    DBInstanceIdentifier: MySQLInstances9
+    AllocatedStorage: 20
+    DBInstanceClass: db.t2.micro
+    Engine: mysql
+    MasterUsername: Abcabc123
+    MasterUserPassword: Abcabc123
+    Port: 3306
+    MultiAZ: False
+    PubliclyAccessible: False

@@ -1,0 +1,10 @@
+#!/bin/bash
+yum install httpd php git php-mysql -y
+yum update -y
+chkconfig httpd on
+service httpd start
+cd /var/www/html
+git clone https://github.com/rezwaniq/trinimbus.git
+cp trinimbus/* /var/www/html/
+touch config.json
+echo "hostinfo,usernameinfo,passwordinfo,dbname" > /var/www/html/config.json
