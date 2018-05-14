@@ -198,7 +198,7 @@ def create_load_balancer():
         LoadBalancerArn=load_balancer_id,
         Port=443,
         Protocol='HTTPS',
-        SslPolicy='ELBSecurityPolicy-2016-08',
+        #SslPolicy='ELBSecurityPolicy-2016-08',
     )
     print '###https response###'
     print https_response
