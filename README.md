@@ -12,14 +12,12 @@ Following prerequisites have to be ensured.
 4. Put API access key and password in the 'credential' file in the path below,
 For Windows machine- \Users\eiqbmuh\.aws
 For MAC - ~/.aws
-
+```
 Example:
 [default]
-
 aws_access_key_id = AKIAJ5xxxxxxT76DPxxx
-
 aws_secret_access_key = xqiBCxxxis1tufDQGYTd/Vwq2Bf/xxxxxxxxxxU1
-
+```
 ### Installing
 
 1. You need to update the data.yaml file according to your needs. 
