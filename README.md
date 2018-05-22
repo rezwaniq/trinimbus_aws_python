@@ -24,12 +24,12 @@ aws_secret_access_key = xqiBCxxxis1tufDQGYTd/Vwq2Bf/xxxxxxxxxxU1
 
 1. You need to update the data.yaml file according to your needs. 
 2. Pay special attention to filling out AvailabilityZones info as this needs to have the list of availibility zones from your default VPC where you want your EC2 Auto Scalling to launch the instances. You do not have to provide all theAvailabilityZones. Just provide the ones where you want your EC2s to be launched. Python code will automatically take whatever you put in here.
-
+```
 AvailabilityZones: 
         - us-east-1a
         - us-east-1b
         - us-east-1c
-      
+```
 3. Self signed certificate file will be uploaded to AMI. Change it if necessary.
 4. Random number will be added in order to avoid duplication error and save time. Remove it if necessage.
 
