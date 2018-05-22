@@ -15,7 +15,9 @@ For MAC - ~/.aws
 
 Example:
 [default]
+
 aws_access_key_id = AKIAJ5xxxxxxT76DPxxx
+
 aws_secret_access_key = xqiBCxxxis1tufDQGYTd/Vwq2Bf/xxxxxxxxxxU1
 
 ### Installing
