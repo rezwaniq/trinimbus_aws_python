@@ -5,7 +5,7 @@ from botocore.exceptions import ClientError
 import random
 import time
 
-
+#Generating random number to avoid deletion(Remove it in the production)
 random_number = str(random.randint(1, 100000))
 default_vpc_id = ''
 global_input_data = None
@@ -28,16 +28,16 @@ def get_vpc_id():
     vpc_list = response.get('Vpcs', [{}])
     
 
-    print '##### Processing VPC #####'
+    print('##### Processing VPC #####')
     i = 1
     for vpc in vpc_list:
       is_default = vpc.get('IsDefault', False)
       if is_default:
-        print '######VPC Object#####'
-        print vpc
-        print '######VPC Object#####'
+        print('######VPC Object#####')
+        print(vpc)
+        print('######VPC Object#####')
         vpc_id = vpc.get('VpcId', '')
-        print vpc_id
+        print(vpc_id)
         subnet_response = ec2.describe_subnets(
                         Filters=[
                             {
@@ -57,10 +57,10 @@ def get_vpc_id():
         
         global default_vpc_id
         default_vpc_id = vpc_id
-        print 'Selecting default vpc id : ' + default_vpc_id    
-        global subnets
+        print('Selecting default vpc id : ' + default_vpc_id)    
+        #global subnets
         subnets = subnets[1:]
-        print subnets
+        print(subnets)
         return vpc_id   
 
 
@@ -102,11 +102,11 @@ def create_load_balancer():
     #Creating ssl certificate for load balancer
     certificate_response = create_ssl_certificate('')
     certificate_response_object = certificate_response.get('ServerCertificateMetadata', [{}])
-    print '###SSL###'
-    print certificate_response_object
+    print('###SSL###')
+    print(certificate_response_object)
     certificate_arn = certificate_response_object.get('Arn', '')
-    print certificate_arn
-    print '#####Propogating SSL certificate file######'
+    print(certificate_arn)
+    print('#####Propogating SSL certificate file######')
     time.sleep(20)
     #'Security Group Permission'
     IpPermissions = [
@@ -140,8 +140,8 @@ def create_load_balancer():
             IpAddressType=input_data['load_balancer']['ipaddresstype']
           
     )
-    print '#######LoadBalancer#######'
-    print loadbalancerresponse
+    print('#######LoadBalancer#######')
+    print(loadbalancerresponse)
     load_balancer_object = loadbalancerresponse.get('LoadBalancers', [{}])
     
     load_balancer_id = load_balancer_object[0].get('LoadBalancerArn', '')
@@ -200,8 +200,8 @@ def create_load_balancer():
         Protocol='HTTPS',
         #SslPolicy='ELBSecurityPolicy-2016-08',
     )
-    print '###https response###'
-    print https_response
+    print('###https response###')
+    print(https_response)
 
     print(listner_response)
     return target_grp_id;
@@ -239,7 +239,7 @@ def create_autoscalling_launchconfig(target_grp_id):
     launch_config_response = client.create_launch_configuration(
         LaunchConfigurationName=input_data['autoscalling_launchconfig']['LaunchConfigurationName'] + random_number,
         ImageId=input_data['autoscalling_launchconfig']['ImageId'],
-        KeyName=input_data['autoscalling_launchconfig']['KeyName'],
+        #KeyName=input_data['autoscalling_launchconfig']['KeyName'],
         SecurityGroups=[input_data['autoscalling_launchconfig']['sec_grp_name'] + random_number],
         InstanceType=input_data['autoscalling_launchconfig']['InstanceType'],
         UserData=bash_script,
@@ -303,11 +303,11 @@ def create_rds(security_group_id):
         AutoMinorVersionUpgrade=True,
         PubliclyAccessible=False,
         )
-    print '###End point###'
+    print('###End point###')
     DBInstance = response.get('DBInstance', [{}])
     db_instance_id = DBInstance.get('DBInstanceIdentifier', '')
-    print db_instance_id
-    print '####Processing RDS Instance####'
+    print(db_instance_id)
+    print('####Processing RDS Instance####')
     sys.stdout.write('Creating.')
     sys.stdout.flush()
     while (True):
@@ -319,7 +319,7 @@ def create_rds(security_group_id):
       else:
         sys.stdout.write('.')
         sys.stdout.flush()
-    print '###End point###'
+    print('###End point###')
     return db_instances
  
 def create_ssl_certificate(load_balancer):
@@ -327,16 +327,20 @@ def create_ssl_certificate(load_balancer):
     certificate_file = open('my-certificate.pem', 'r') 
     private_file = open('my-private-key.pem', 'r')     
     response = client.upload_server_certificate(
-        ServerCertificateName='MyCertificate' + random_number,
+        ServerCertificateName='RezwanCertificate' + random_number,
         CertificateBody = certificate_file.read(),
         PrivateKey = private_file.read(),
     )
-    print response
+    print(response)
     return response
   
-
-get_vpc_id()
-getInputData()
-target_grp_id = create_load_balancer()
-security_group_id = create_autoscalling_launchconfig(target_grp_id)
-print(security_group_id)
+input_ch = input("You are about to deploy your infrastructure. Enter 'yes' to continue and 'no' to cancel:")
+if input_ch == "yes":
+    get_vpc_id()
+    getInputData()
+    target_grp_id = create_load_balancer()
+    security_group_id = create_autoscalling_launchconfig(target_grp_id)
+    print(security_group_id)
+    print("Program ran without error")
+else:
+    print("Program exiting")
