@@ -1,6 +1,6 @@
 # Project Title
 
-This Python Code and Cloud Formation template has been written to auto deploy an infrastructure and a web application on top of that.
+This Python Code and Cloud Formation template has been written to auto deploy an infrastructure and a web application on top of that. Although Cloud Formation template is deploying the complete stack and downloading files from Git, however I could not troubleshoot the database connection page due to shortage of time.
 The code and template will deploy EC2 instances in an Auto Scalling group which will be fronted by ELBv2. Behind the EC2s there is MySQL DB running. Using the DNS string of the ELB you can access the PHP web application which is talking to the DB instance. 
 
 ### Prerequisites
