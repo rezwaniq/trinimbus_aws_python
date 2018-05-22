@@ -8,7 +8,7 @@ The code and template will deploy EC2 instances in an Auto Scalling group which 
 Following prerequisites have to be ensured.
 1. AWS account with correct quota.
 2. AWS account API key and password.
-3. Python(https://www.python.org/downloads/) installation with Boto3(https://boto3.readthedocs.io/) library.
+3. [Python](https://www.python.org/downloads/) installation with [Boto3](https://boto3.readthedocs.io/) library.
 4. Put API access key and password in the 'credential' file in the path below,
 For Windows machine- \Users\eiqbmuh\.aws
 For MAC - ~/.aws
@@ -28,20 +28,8 @@ AvailabilityZones:
         - us-east-1b
         - us-east-1c
       
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the test
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
+3. Self signed certificate file will be uploaded to AMI. Change it if necessary.
+4. Random number will be added in order to avoid duplication error and save time. Remove it if necessage.
 
 ### And coding style tests
 
